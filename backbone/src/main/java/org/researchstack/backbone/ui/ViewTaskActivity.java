@@ -85,6 +85,7 @@ public class ViewTaskActivity extends PinCodeActivity implements StepCallbacks
 
     protected void showNextStep()
     {
+        hideKeyboard();
         Step nextStep = task.getStepAfterStep(currentStep, taskResult);
         if(nextStep == null)
         {
@@ -281,10 +282,7 @@ public class ViewTaskActivity extends PinCodeActivity implements StepCallbacks
     private void hideKeyboard()
     {
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if(imm.isActive() && imm.isAcceptingText())
-        {
-            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-        }
+        imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
 
     private void showConfirmExitDialog()

@@ -21,6 +21,7 @@ package org.researchstack.backbone.ui.views;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -154,15 +155,19 @@ public class StepSwitcher extends FrameLayout
                         .setDuration(animationTime)
                         .translationX(- 1 * newTranslationX)
                         .withEndAction(() ->{
-                            InputMethodManager imm = (InputMethodManager) getContext()
-                                    .getSystemService(Activity.INPUT_METHOD_SERVICE);
 
-                            if(imm.isActive() && imm.isAcceptingText())
-                            {
-                                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                            }
+                            //Removed toggle since isActive always returns true
+//                            InputMethodManager imm = (InputMethodManager) getContext()
+//                                    .getSystemService(Activity.INPUT_METHOD_SERVICE);
+//
+//                            if(imm.isActive() && imm.isAcceptingText())
+//                            {
+//                                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+//                            }
 
                             removeView(currentStep);
+                            //Hacky way to make sure SubmitBar is draw at bottom of screen after keyboard is removed
+                            ViewCompat.setTranslationY(stepLayout.getLayout().findViewById(R.id.rsb_submit_bar), 0);
 
                         });
             }
