@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.dcendents.android-maven'
@@ -69,7 +71,7 @@ ext {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.android.support:preference-v14:23.2.1'
@@ -181,4 +183,36 @@ bintray {
         licenses = allLicenses
         publish = true
     }
+}
+
+publishing {
+    publications {
+        researchStack(MavenPublication) {
+            groupId "org.researchstack"
+            artifactId "backbone"
+            version version
+            artifact("$buildDir/outputs/aar/backbone-release.aar")
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username mavenUser
+                password mavenPassword
+            }
+            url "https://maven.hip.se/content/repositories/researchstack"
+        }
+    }
+
 }

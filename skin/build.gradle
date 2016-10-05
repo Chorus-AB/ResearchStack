@@ -1,10 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.jfrog.bintray'
 
-version = '1.1.1.0'
+version = '1.1.1.1'
 
 android {
     compileSdkVersion 23
@@ -69,7 +71,7 @@ ext {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar', '*.so'])
+//    compile fileTree(dir: 'libs', include: ['*.jar', '*.so'])
     compile 'com.cronutils:cron-utils:3.1.2'
     compile project(':backbone')
     testCompile 'junit:junit:4.12'
@@ -172,4 +174,37 @@ bintray {
         licenses = allLicenses
         publish = true
     }
+}
+
+
+publishing {
+    publications {
+        researchStack(MavenPublication) {
+            groupId "org.researchstack"
+            artifactId "skin"
+            version version
+            artifact("$buildDir/outputs/aar/skin-release.aar")
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username mavenUser
+                password mavenPassword
+            }
+            url "https://maven.hip.se/content/repositories/researchstack"
+        }
+    }
+
 }
