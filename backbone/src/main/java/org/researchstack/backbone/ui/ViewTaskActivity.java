@@ -282,7 +282,9 @@ public class ViewTaskActivity extends PinCodeActivity implements StepCallbacks
     private void hideKeyboard()
     {
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        if(this.getCurrentFocus() != null && this.getCurrentFocus().getWindowToken() != null) {
+            imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     private void showConfirmExitDialog()
