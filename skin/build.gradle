@@ -6,7 +6,7 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.jfrog.bintray'
 
-version = '1.1.1.1'
+version = rootProject.ext.applicationVersionName
 
 android {
     compileSdkVersion 23
@@ -176,7 +176,6 @@ bintray {
     }
 }
 
-
 publishing {
     publications {
         researchStack(MavenPublication) {
@@ -200,10 +199,10 @@ publishing {
     repositories {
         maven {
             credentials {
-                username mavenUser
-                password mavenPassword
+                username mavenChorusUser
+                password mavenChorusPassword
             }
-            url "https://maven.hip.se/content/repositories/researchstack"
+            url "https://maven.chorus.se/repository/maven-snapshots"
         }
     }
 

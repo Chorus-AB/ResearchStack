@@ -3,7 +3,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        mavenLocal()
         jcenter()
     }
 
@@ -32,4 +31,8 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    applicationVersionName = "1.1.1.1-SNAPSHOT"
 }

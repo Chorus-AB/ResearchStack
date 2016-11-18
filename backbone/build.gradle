@@ -6,7 +6,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = '1.1.1.1'
+version = rootProject.ext.applicationVersionName
 
 android {
     compileSdkVersion 23
@@ -208,10 +208,10 @@ publishing {
     repositories {
         maven {
             credentials {
-                username mavenUser
-                password mavenPassword
+                username mavenChorusUser
+                password mavenChorusPassword
             }
-            url "https://maven.hip.se/content/repositories/researchstack"
+            url "https://maven.chorus.se/repository/maven-snapshots"
         }
     }
 
