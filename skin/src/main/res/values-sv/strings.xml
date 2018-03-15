@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Step Errors -->
+    <string name="rsb_error_data_failed" tools:ignore="ResourceName">Kunde inte läsa krypterad data, försök igen!</string>
+    <string name="rsb_error_invalid_signature" tools:ignore="ResourceName">Felaktig signatur</string>
+    <string name="rsb_invalid_answer_default" tools:ignore="ResourceName">Felaktigt svar, försök igen!</string>
+    <string name="rsb_invalid_answer_date_over" tools:ignore="ResourceName">Felaktigt svar, datum måste vara före %1$s</string>
+    <string name="rsb_invalid_answer_date_under" tools:ignore="ResourceName">Felaktigt svar, datum måste vara efter %1$s</string>
+    <string name="rsb_invalid_answer_integer_over" tools:ignore="ResourceName">Felaktigt svar, ditt värde måste vara %1$s eller lägre</string>
+    <string name="rsb_invalid_answer_integer_under" tools:ignore="ResourceName">Felaktigt svar, ditt värde måste vara %1$s eller högre</string>
+    <string name="rsb_invalid_answer_choice" tools:ignore="ResourceName">Välj ett värde!</string>
+    <string name="rsb_invalid_answer_date_none" tools:ignore="ResourceName">Välj ett datum.</string>
+    <string name="rsb_birth_date_too_old" tools:ignore="ResourceName">Du måste vara %1$s år eller yngre</string>
+    <string name="rsb_birth_date_too_young" tools:ignore="ResourceName">Du måste åtminstone vara %1$s år gammal</string>
+
+</resources>
