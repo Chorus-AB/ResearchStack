@@ -212,7 +212,7 @@ publishing {
                 username mavenChorusUser
                 password mavenChorusPassword
             }
-            url "https://maven.chorus.se/repository/maven-snapshots"
+            url "https://maven.chorus.se/repository/maven-public"
         }
     }
 
