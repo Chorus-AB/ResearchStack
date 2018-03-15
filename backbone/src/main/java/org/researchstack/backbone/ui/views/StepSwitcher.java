@@ -38,12 +38,11 @@ import java.security.InvalidParameterException;
  * when switching between two steps. There will, at most, be two steps when animating. The step
  * going off screen will eventually be removed.
  */
-public class StepSwitcher extends FrameLayout
-{
+public class StepSwitcher extends FrameLayout {
     public static final DecelerateInterpolator interpolator = new DecelerateInterpolator(2);
 
-    public static final int SHIFT_LEFT  = 1;
-    public static final int SHIFT_RIGHT = - 1;
+    public static final int SHIFT_LEFT = 1;
+    public static final int SHIFT_RIGHT = -1;
 
     private int animationTime;
 
@@ -52,8 +51,7 @@ public class StepSwitcher extends FrameLayout
      *
      * @param context the application's environment
      */
-    public StepSwitcher(Context context)
-    {
+    public StepSwitcher(Context context) {
         super(context);
         init();
     }
@@ -65,8 +63,7 @@ public class StepSwitcher extends FrameLayout
      * @param context the application environment
      * @param attrs   a collection of attributes
      */
-    public StepSwitcher(Context context, AttributeSet attrs)
-    {
+    public StepSwitcher(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -81,14 +78,12 @@ public class StepSwitcher extends FrameLayout
      *                     resource that supplies defaults values for the TypedArray.  Can be 0 to
      *                     not look for defaults.
      */
-    public StepSwitcher(Context context, AttributeSet attrs, int defStyleAttr)
-    {
+    public StepSwitcher(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         animationTime = getResources().getInteger(R.integer.rsb_config_mediumAnimTime);
     }
 
@@ -100,24 +95,20 @@ public class StepSwitcher extends FrameLayout
      * @param direction  the direction of the animation in the x direction. This values can either be
      *                   {@link StepSwitcher#SHIFT_LEFT} or {@link StepSwitcher#SHIFT_RIGHT}
      */
-    public void show(StepLayout stepLayout, int direction)
-    {
+    public void show(StepLayout stepLayout, int direction) {
         // if layouts originate from the same step, ignore show
         View currentStep = findViewById(R.id.rsb_current_step);
-        if(currentStep != null)
-        {
+        if (currentStep != null) {
             String currentStepId = (String) currentStep.getTag(R.id.rsb_step_layout_id);
             String stepLayoutId = (String) stepLayout.getLayout().getTag(R.id.rsb_step_layout_id);
-            if(currentStepId.equals(stepLayoutId))
-            {
+            if (currentStepId.equals(stepLayoutId)) {
                 return;
             }
         }
 
         // Force crash when invalid direction is passed in. The values of the constants are used
         // when calculating the x-traversal distance
-        if(direction != StepSwitcher.SHIFT_LEFT && direction != StepSwitcher.SHIFT_RIGHT)
-        {
+        if (direction != StepSwitcher.SHIFT_LEFT && direction != StepSwitcher.SHIFT_RIGHT) {
             throw new InvalidParameterException(
                     "Direction with value: " + direction + " is not supported.");
         }
@@ -125,8 +116,7 @@ public class StepSwitcher extends FrameLayout
         post(() -> {
             // Set the id of current as something other than R.id.current_step
             int currentIndex = 0;
-            if(currentStep != null)
-            {
+            if (currentStep != null) {
                 currentStep.setId(0);
                 currentIndex = indexOfChild(currentStep);
             }
@@ -139,8 +129,7 @@ public class StepSwitcher extends FrameLayout
 
             // If the old step is gone, we can go ahead and ignore the following animation code.
             // This will usually happen on start-up of the host (e.g. activity)
-            if(currentStep != null)
-            {
+            if (currentStep != null) {
                 int newTranslationX = direction * getWidth();
 
                 stepLayout.getLayout().setTranslationX(newTranslationX);
@@ -153,6 +142,7 @@ public class StepSwitcher extends FrameLayout
                 currentStep.animate()
                         .setInterpolator(interpolator)
                         .setDuration(animationTime)
+
                         .translationX(- 1 * newTranslationX)
                         .withEndAction(() ->{
 
@@ -165,6 +155,7 @@ public class StepSwitcher extends FrameLayout
 //                                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 //                            }
 
+
                             removeView(currentStep);
                             //Hacky way to make sure SubmitBar is draw at bottom of screen after keyboard is removed
                             ViewCompat.setTranslationY(stepLayout.getLayout().findViewById(R.id.rsb_submit_bar), 0);
@@ -174,19 +165,16 @@ public class StepSwitcher extends FrameLayout
         });
     }
 
-    private LayoutParams getLayoutParams(StepLayout stepLayout)
-    {
+    private LayoutParams getLayoutParams(StepLayout stepLayout) {
         LayoutParams lp = (LayoutParams) stepLayout.getLayout().getLayoutParams();
-        if(lp == null)
-        {
+        if (lp == null) {
             lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         }
         return lp;
     }
 
     @Override
-    public CharSequence getAccessibilityClassName()
-    {
+    public CharSequence getAccessibilityClassName() {
         return StepSwitcher.class.getName();
     }
 

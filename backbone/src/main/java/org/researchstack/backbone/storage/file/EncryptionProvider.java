@@ -1,4 +1,5 @@
 package org.researchstack.backbone.storage.file;
+
 import android.content.Context;
 
 import org.researchstack.backbone.storage.file.aes.Encrypter;
@@ -6,8 +7,7 @@ import org.researchstack.backbone.storage.file.aes.Encrypter;
 /**
  * This interface is used to create, change, and authenticate pin codes provided by the user.
  */
-public interface EncryptionProvider
-{
+public interface EncryptionProvider {
     /**
      * Returns whether the user has created a pin code.
      *
@@ -23,6 +23,13 @@ public interface EncryptionProvider
      * @param pin     the pin that the user entered
      */
     void createPinCode(Context context, String pin);
+
+    /**
+     * Removes the pin code if one exists.
+     *
+     * @param context android context
+     */
+    void removePinCode(Context context);
 
     /**
      * Changes the pin code if the old pin provided matches
