@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:imeOptions="actionNext"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:minHeight="@dimen/rsb_item_size_default"
         android:singleLine="true"
         android:textColor="?android:attr/textColorPrimary"
