@@ -215,7 +215,7 @@ publishing {
                 username artifactoryUser
                 password artifactoryPassword
             }
-            url "https://artifactory.chorus.se/artifactory/frisq"
+            url "https://artifactory.chorus.se/artifactory/opensource"
         }
     }
 
