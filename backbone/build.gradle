@@ -212,10 +212,10 @@ publishing {
     repositories {
         maven {
             credentials {
-                username mavenChorusUser
-                password mavenChorusPassword
+                username artifactoryUser
+                password artifactoryPassword
             }
-            url "https://maven.chorus.se/repository/maven-public"
+            url "https://artifactory.chorus.se/artifactory/frisq"
         }
     }
 
