@@ -20,9 +20,10 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode rootProject.ext.applicationVersionCode
         versionName version
+        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
     }
     buildTypes {
         release {
@@ -86,7 +87,11 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta3'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.0-RC1'
-
+    implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:preference-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.jakewharton.rxbinding:rxbinding:0.4.0"
+    implementation "co.touchlab.squeaky:squeaky-query:0.5.0.0"
 }
 
 // this could be a script, since it is used in two places
@@ -210,5 +215,4 @@ publishing {
             url "https://artifactory.chorus.se/artifactory/opensource"
         }
     }
-
 }
